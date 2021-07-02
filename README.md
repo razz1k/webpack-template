@@ -1,3 +1,3 @@
-# webpack-multipage-example
+# webpack-template
 
-Use case for using webpack on multiple html pages, that shares part of their js.
+webpack for multiple html pages, that shares part of their js.
