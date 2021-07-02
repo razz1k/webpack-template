@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url("../font/Roboto/Roboto-Regular.ttf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url("../font/Roboto/Roboto-Bold.ttf") format("opentype");
+  font-weight: 700;
+  font-style: bold;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  background-color: grey;
+  height: 500px;
+  width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0 auto;
+  position: relative;
+}
