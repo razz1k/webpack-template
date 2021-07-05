@@ -6,9 +6,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin"),
   HTMLdir = './src/pages/';
 
 // get array of pages
-let pages = glob.sync(HTMLdir + "**/*.html");
+let pages = glob.sync(HTMLdir + "**/*.js");
 pages.forEach((file, index, array) => {
-  array[index] = file.replace(HTMLdir, '').replace('.html', '');
+  array[index] = file.replace(HTMLdir, '').replace('.js', '');
 });
 
 module.exports = (env) => {
