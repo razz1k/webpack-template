@@ -43,7 +43,7 @@ module.exports = (env) => {
     plugins: [].concat(
       pages.map(
         (page) =>
-          fs.existsSync(`${EntryPointDir}.${page}.html`)
+          fs.existsSync(`${EntryPointDir}${page}.html`)
             ? new HtmlWebpackPlugin({
               template: `${EntryPointDir}${page}.html`,
               filename: `${page}.html`,
