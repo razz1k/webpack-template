@@ -3,12 +3,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin"),
   path = require('path'),
   fs = require('fs'),
   glob = require('glob'),
-  HTMLdir = './src/pages/';
+  EntryPointDir = './src/pages/';
 
 // get array of pages
-let pages = glob.sync(HTMLdir + "**/*.js");
+let pages = glob.sync(EntryPointDir + "**/*.js");
 pages.forEach((file, index, array) => {
-  array[index] = file.replace(HTMLdir, '').replace('.js', '');
+  array[index] = file.replace(EntryPointDir, '').replace('.js', '');
 });
 
 module.exports = (env) => {
@@ -17,7 +17,7 @@ module.exports = (env) => {
     mode: env.production ? "production" : "development",
 
     entry: pages.reduce((config, page) => {
-      config[page] = `${HTMLdir}${page}.js`;
+      config[page] = `${EntryPointDir}${page}.js`;
       return config;
     }, {}),
 
@@ -44,7 +44,7 @@ module.exports = (env) => {
       pages.map(
         (page) =>
           new HtmlWebpackPlugin({
-            template: `${HTMLdir}${page}.html`,
+            template: `${EntryPointDir}${page}.html`,
             filename: `${page}.html`,
             chunks: [page],
           })
