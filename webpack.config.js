@@ -1,5 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin"),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+  ImageMinimizerPlugin = require("image-minimizer-webpack-plugin"),
+  CssMinimizerPlugin = require('css-minimizer-webpack-plugin'),
+  { extendDefaultPlugins } = require('svgo'),
   path = require('path'),
   fs = require('fs'),
   glob = require('glob'),
@@ -33,6 +36,11 @@ module.exports = (env) => {
       hot: true,
     },
     devtool: 'inline-source-map',
+    optimization: {
+      minimizer: [
+        new CssMinimizerPlugin(),
+      ],
+    },
 
     plugins: [].concat(
       pages.map(
@@ -68,6 +76,37 @@ module.exports = (env) => {
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
           type: 'asset/resource',
+          use: [
+            {
+              loader: ImageMinimizerPlugin.loader,
+              options: {
+                severityError: "warning", // Ignore errors on corrupted images
+                minimizerOptions: {
+                  plugins: [
+                    ["gifsicle", { interlaced: true }],
+                    ["imagemin-mozjpeg"],
+                    ["imagemin-pngquant"],
+                    ["svgo",
+                      {
+                        plugins: extendDefaultPlugins([
+                          {
+                            name: "removeViewBox",
+                            active: false,
+                          },
+                          {
+                            name: "addAttributesToSVGElement",
+                            params: {
+                              attributes: [{ xmlns: "http://www.w3.org/2000/svg" }],
+                            },
+                          },
+                        ]),
+                      },
+                    ],
+                  ]
+                }
+              },
+            },
+          ],
           generator: {
             filename: 'assets/[name].[hash][ext]'
           }
