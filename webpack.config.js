@@ -17,12 +17,12 @@ module.exports = (env) => {
     mode: env.production ? "production" : "development",
 
     entry: pages.reduce((config, page) => {
-      config[page] = `${EntryPointDir}${page}.js`;
+      config.push(`${EntryPointDir}${page}.js`);
       return config;
-    }, {}),
+    }, []),
 
     output: {
-      filename: "[name].[contenthash].js",
+      filename: "bundle.[contenthash].js",
       path: __dirname + "/dist",
       clean: true,
     },
@@ -34,12 +34,6 @@ module.exports = (env) => {
     },
     devtool: 'inline-source-map',
 
-    optimization: {
-      splitChunks: {
-        chunks: "all",
-      },
-    },
-
     plugins: [].concat(
       pages.map(
         (page) =>
@@ -47,16 +41,13 @@ module.exports = (env) => {
             ? new HtmlWebpackPlugin({
               template: `${EntryPointDir}${page}.html`,
               filename: `${page}.html`,
-              chunks: [page],
             })
             : new HtmlWebpackPlugin({
               filename: `${page}.html`,
-              chunks: [page],
             })
       ),
       new MiniCssExtractPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css",
+        filename: "bundle.[contenthash].css",
       }),
     ),
 
