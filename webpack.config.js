@@ -43,11 +43,16 @@ module.exports = (env) => {
     plugins: [].concat(
       pages.map(
         (page) =>
-          new HtmlWebpackPlugin({
-            template: `${EntryPointDir}${page}.html`,
-            filename: `${page}.html`,
-            chunks: [page],
-          })
+          fs.existsSync(`${EntryPointDir}.${page}.html`)
+            ? new HtmlWebpackPlugin({
+              template: `${EntryPointDir}${page}.html`,
+              filename: `${page}.html`,
+              chunks: [page],
+            })
+            : new HtmlWebpackPlugin({
+              filename: `${page}.html`,
+              chunks: [page],
+            })
       ),
       new MiniCssExtractPlugin({
         filename: "[name].css",
