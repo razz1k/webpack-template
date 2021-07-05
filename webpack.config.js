@@ -25,7 +25,6 @@ module.exports = (env) => {
       filename: "[name].[contenthash].js",
       path: __dirname + "/dist",
       clean: true,
-      publicPath: './dist/',
     },
 
     devServer: {
