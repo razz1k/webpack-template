@@ -19,14 +19,14 @@ html {
 
 main {
   background-color: grey;
-  height: 500px;
-  width: 500px;
+  height: 50vh;
+  width: 70vw;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin: 0 auto;
+  margin: 20vh auto;
   position: relative;
 }
