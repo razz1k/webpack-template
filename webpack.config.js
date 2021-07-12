@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin"),
   ImageMinimizerPlugin = require("image-minimizer-webpack-plugin"),
   CssMinimizerPlugin = require('css-minimizer-webpack-plugin'),
   { extendDefaultPlugins } = require('svgo'),
-  path = require('path'),
   fs = require('fs'),
   glob = require('glob'),
   EntryPointDir = './src/pages/';
