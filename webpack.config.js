@@ -14,6 +14,7 @@ pages.forEach((file, index, array) => {
 });
 
 module.exports = (env) => {
+  process.env.NODE_ENV = env.production ? "production" : "development";
 
   return {
     mode: env.production ? "production" : "development",
@@ -24,7 +25,10 @@ module.exports = (env) => {
     }, []),
 
     output: {
-      filename: "bundle.[contenthash].js",
+      filename:
+        env.production
+          ? "bundle.[contenthash].js"
+          : "bundle.js",
       path: __dirname + "/dist",
       clean: true,
     },
@@ -34,6 +38,7 @@ module.exports = (env) => {
       port: 9000,
       hot: true,
     },
+    target: 'web',
     devtool: 'inline-source-map',
     optimization: {
       minimizer: [
@@ -54,23 +59,36 @@ module.exports = (env) => {
             })
       ),
       new MiniCssExtractPlugin({
-        filename: "bundle.[contenthash].css",
-      }),
+        filename:
+          env.production
+            ? "bundle.[contenthash].css"
+            : "bundle.css",
+      })
     ),
 
     module: {
       rules: [
         {
           test: /\.css$/i,
-          use: env.production
-            ? [MiniCssExtractPlugin.loader, 'css-loader']
-            : ["style-loader", 'css-loader']
+          use: [
+            env.production
+              ? MiniCssExtractPlugin.loader
+              : "style-loader",
+
+            'css-loader'
+          ]
         },
         {
           test: /\.s[ac]ss$/i,
-          use: env.production
-            ? [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-            : ["style-loader", 'css-loader', 'sass-loader']
+          use: [
+            env.production
+              ? MiniCssExtractPlugin.loader
+              : "style-loader",
+
+            'css-loader',
+            'postcss-loader',
+            'sass-loader'
+          ]
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -107,14 +125,20 @@ module.exports = (env) => {
             },
           ],
           generator: {
-            filename: 'assets/[name].[hash][ext]'
+            filename:
+              env.production
+                ? 'assets/[name].[hash][ext]'
+                : 'assets/[name][ext]'
           }
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/i,
           type: 'asset/resource',
           generator: {
-            filename: 'assets/[name].[hash][ext]'
+            filename:
+              env.production
+                ? 'assets/[name].[hash][ext]'
+                : 'assets/[name][ext]'
           }
         },
         {

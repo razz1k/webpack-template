@@ -15,6 +15,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
+    "autoprefixer": "^10.2.6",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.6",
     "css-minimizer-webpack-plugin": "^3.0.2",
@@ -27,6 +28,9 @@
     "imagemin-pngquant": "^9.0.2",
     "imagemin-svgo": "^9.0.0",
     "mini-css-extract-plugin": "^2.0.0",
+    "postcss": "^8.3.5",
+    "postcss-loader": "^6.1.1",
+    "postcss-preset-env": "^6.7.0",
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.0.0",
@@ -36,5 +40,13 @@
   },
   "dependencies": {
     "lodash": "^4.17.21"
+  },
+  "browserslist": {
+    "production": [
+      ">= 0.05%"
+    ],
+    "development": [
+      ">= 1%"
+    ]
   }
 }
